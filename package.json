@@ -1,0 +1,19 @@
+{
+  "name": "ram",
+  "version": "1.0.0",
+  "description": "web app for level up my programming skills",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://agoge@bitbucket.org/agoge/ram.git"
+  },
+  "author": "me",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/agoge/ram#readme",
+  "dependencies": {
+    "express": "^4.13.4"
+  }
+}
