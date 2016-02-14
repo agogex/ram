@@ -24,13 +24,47 @@ var routes = function (Employee) {
             res.status(201).send(employee);
         });
 
+    employeeRouter.use('/:id', function (req, res, next) {
+        Employee.findById(req.params.id, function (err, employee) {
+            if (err) {
+                res.status(500).send(err);
+            } else if (employee) {
+                req.employee = employee;
+                next();
+            } else {
+                res.status(404).send('no item found');
+            }
+        });
+    });
+
     employeeRouter.route('/:id')
-        .get()
-        .post()
-        .put()
-        .delete();
-        
-        return employeeRouter;
+        .get(function (req, res) {
+            res.json(req.employee);
+        })
+        .put(function (req, res) {
+            if (req.body._id) delete req.body._id;
+            for (var e in req.body) {
+                req.employee[e] = req.body[e];
+            }
+            req.employee.save(function (err) {
+                if (err) {
+                    res.status(500).send(err);
+                } else {
+                    res.json(req.employee);
+                }
+            });
+        })
+        .delete(function(req, res){
+            req.employee.remove(function(err){
+                if(err){
+                    res.status(500).send(err);
+                } else{
+                    res.status(204).send('Removed');
+                }
+            });
+        });
+
+    return employeeRouter;
 };
 
 module.exports = routes;
