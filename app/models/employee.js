@@ -1,6 +1,6 @@
-/// <reference path="../typings/node/node.d.ts" />
-/// <reference path="../typings/express/express.d.ts" />
-/// <reference path="../typings/mongoose/mongoose.d.ts" />
+/// <reference path="../../typings/node/node.d.ts" />
+/// <reference path="../../typings/express/express.d.ts" />
+/// <reference path="../../typings/mongoose/mongoose.d.ts" />
 
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;

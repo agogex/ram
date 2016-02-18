@@ -1,11 +1,9 @@
-/// <reference path="../typings/node/node.d.ts" />
-/// <reference path="../typings/express/express.d.ts" />
-/// <reference path="../typings/mongoose/mongoose.d.ts" />
-/// <reference path="../typings/body-parser/body-parser.d.ts" />
+/// <reference path="../../typings/node/node.d.ts" />
+/// <reference path="../../typings/express/express.d.ts" />
+/// <reference path="../../typings/mongoose/mongoose.d.ts" />
+/// <reference path="../../typings/body-parser/body-parser.d.ts" />
 
-var express = require('express');
-
-var routes = function (Employee) {
+var routes = function (Employee, express) {
     var employeeRouter = express.Router();
 
     employeeRouter.route('/')

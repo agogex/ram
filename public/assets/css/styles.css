@@ -1,0 +1,36 @@
+.header-color--white {
+    background-color: white;
+}
+
+.ram-layout-title {
+    font-weight: 700;
+    font-size: 20px;
+    color: #17864c;
+}
+
+.ram-navigation .mdl-navigation__link.is-active, 
+.ram-navigation .mdl-navigation__link:hover {
+    border-bottom: 4px solid #17864c;
+    height: 60px;
+}
+
+.ram-navigation .mdl-navigation__link {
+    font-weight: 700;
+    font-size: 14px;
+    color: #17864c;
+    line-height: 65px;
+}
+
+.ram-navigation .mdl-button {
+    height: 64px;
+    line-height: 65px;
+}
+
+.ram-layout__content {
+    padding: 50px 0;
+}
+
+.ram-section--center {
+    max-width: 860px;
+    min-height: 100%;
+}
