@@ -23,7 +23,7 @@ var employeeRouter = require('./app/routes/employeeRoutes')(Employee, express);
 app.use('/api/employees', employeeRouter);
 
 app.use('*', function (req, res) {
-    res.sendFile(path.join(__dirname + '/public/app/index.html'));
+    res.sendFile(path.join(__dirname + '/public/app/views/index.html'));
 });
 
 app.listen(config.port, function(){
