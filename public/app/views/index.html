@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ПАТ «Укртранснафта»</title>
-
+    <base href="/">
     <!-- Page styles -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="../../assets/css/styles.css">
 </head>
 
-<body ng-app="app" ng-controller="mainController as main">
+<body ng-app="app">
 
     <!-- Always shows a header, even in smaller screens. -->
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
@@ -37,17 +37,7 @@
         </header>
         <main class="mdl-layout__content ram-layout__content">
             <!--<div class="page-content">-->
-            <section class="ram-section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
-                <ul class="demo-list-three mdl-list">
-                    <li class="mdl-list__item mdl-list__item--three-line" ng-repeat="employee in main.employees">
-                        <span class="mdl-list__item-primary-content">
-                            <i class="material-icons mdl-list__item-avatar">person</i>
-                            <span>{{employee.lastname}} {{employee.name}} {{employee.surname}}</span>
-                            <span class="mdl-list__item-text-body">{{employee.position}} {{employee.department}} {{employee['phone number']}} {{employee.email}} {{employee.office}}</span>
-                        </span>
-                    </li>
-                </ul>
-            </section>
+            <div ng-view></div>
             <!--</div>-->
         </main>
         <footer class="mdl-mini-footer">
@@ -61,8 +51,9 @@
         </footer>
     </div>
     <script src="../../assets/libs/angular.min.js"></script>
+    <script src="../../assets/libs/angular-route.min.js"></script>
     <script src="../../assets/libs/material.min.js"></script>
     <script src="../../app/app.js"></script>
+    <script src="../../app/app.routes.js"></script>
 </body>
-
 </html>

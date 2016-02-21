@@ -1,11 +1,13 @@
 /// <reference path="../../typings/angularjs/angular.d.ts" />
 
-angular.module('app', [])
-	.controller('mainController', function($http){
-		var vm = this;
+angular.module('app', ['appRouter'])
+	.controller('employeesController', function($scope, $http){
 		$http.get('/api/employees')
 			.then(function(data){
-				vm.employees = data.data;
-				console.log(vm.employees);
+				$scope.employees = data.data;
 			});
-	});
+    })
+    .controller('homeController', function($scope){
+        $scope.message = 'Home Page';
+    });
+

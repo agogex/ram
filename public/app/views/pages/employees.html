@@ -1,0 +1,11 @@
+<section class="ram-section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+    <ul class="demo-list-three mdl-list">
+        <li class="mdl-list__item mdl-list__item--three-line" ng-repeat="employee in employees">
+            <span class="mdl-list__item-primary-content">
+                            <i class="material-icons mdl-list__item-avatar">person</i>
+                            <span>{{employee.lastname}} {{employee.name}} {{employee.surname}}</span>
+            <span class="mdl-list__item-text-body">{{employee.position}} {{employee.department}} {{employee['phone number']}} {{employee.email}} {{employee.office}}</span>
+            </span>
+        </li>
+    </ul>
+</section>

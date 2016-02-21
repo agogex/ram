@@ -11,7 +11,7 @@ var express = require('express'),
     Employee = require('./app/models/employee'),
     config = require('./config');
 
-app.use(express.static(path.join(__dirname + '/public')));
+app.use(express.static(__dirname + '/public'));
 
 mongoose.connect(config.database);
 
