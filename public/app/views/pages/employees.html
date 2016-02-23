@@ -1,67 +1,101 @@
-<div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--7-col mdl-cell--3-offset">
-        <!-- Simple Textfield -->
-        <form ng-submit="createNewEpmloyee()" ng-show="showCreateForm">
-            <div class="mdl-textfield mdl-js-textfield">
-                <input class="mdl-textfield__input" type="text" id="sample3" ng-model="formData.department">
-                <label class="mdl-textfield__label" for="sample3">Department</label>
+<div class="row">
+    <form ng-submit="createNewEpmloyee()" ng-show="showCreateForm" class="col s12">
+        <div class="row">
+            <div class="col s6 input-field">
+                <input type="text" placeholder="Department" ng-model="formData.department">
             </div>
-            <div class="mdl-textfield mdl-js-textfield">
-                <input class="mdl-textfield__input" type="text" id="sample3" ng-model="formData.position">
-                <label class="mdl-textfield__label" for="sample3">Position</label>
+            <div class="col s6 input-field">
+                <input type="text" placeholder="Position" ng-model="formData.position">
             </div>
-            <div class="mdl-textfield mdl-js-textfield">
-                <input class="mdl-textfield__input" type="text" id="sample3" ng-model="formData.lastname">
-                <label class="mdl-textfield__label" for="sample3">Lastname</label>
+        </div>
+        <div class="row">
+            <div class="col s6 input-field">
+                <input type="text" placeholder="Lastname" ng-model="formData.lastname">
             </div>
-            <div class="mdl-textfield mdl-js-textfield">
-                <input class="mdl-textfield__input" type="text" id="sample3" ng-model="formData.name">
-                <label class="mdl-textfield__label" for="sample3">Name</label>
+            <div class="col s6 input-field">
+                <input type="text" placeholder="Name" ng-model="formData.name">
             </div>
-            <div class="mdl-textfield mdl-js-textfield">
-                <input class="mdl-textfield__input" type="text" id="sample3" ng-model="formData.surname">
-                <label class="mdl-textfield__label" for="sample3">Surname</label>
+        </div>
+        <div class="row">
+            <div class="col s6 input-field">
+                <input type="text" placeholder="Surname" ng-model="formData.surname">
             </div>
-            <div class="mdl-textfield mdl-js-textfield">
-                <input class="mdl-textfield__input" type="text" id="sample3" ng-model="formData['phone number']">
-                <label class="mdl-textfield__label" for="sample3">Phone number</label>
+            <div class="col s6 input-field">
+                <input type="text" placeholder="Phone number" ng-model="formData['phone number']">
             </div>
-            <div class="mdl-textfield mdl-js-textfield">
-                <input class="mdl-textfield__input" type="text" id="sample3" ng-model="formData.email">
-                <label class="mdl-textfield__label" for="sample3">Email</label>
+        </div>
+        <div class="row">
+            <div class="col s6 input-field">
+                <input type="text" placeholder="Email" ng-model="formData.email">
             </div>
-            <div class="mdl-textfield mdl-js-textfield">
-                <input class="mdl-textfield__input" type="text" id="sample3" ng-model="formData.office">
-                <label class="mdl-textfield__label" for="sample3">Office</label>
+            <div class="col s6 input-field">
+                <input type="text" placeholder="Office" ng-model="formData.office">
             </div>
-            <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-                Create New Employee
-            </button>
-        </form>
-    </div>
-    <div class="mdl-cell mdl-cell--1-col ">
-        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" ng-click="add()">
-            <i class="material-icons">add</i>
+        </div>
+        <button class="btn waves-effect waves-light" type="submit" name="action">Create
+            <i class="material-icons right">send</i>
         </button>
+    </form>
+</div>
+
+<div class="row">
+    <div class="col s6 input-field">
+        <input type="text" placeholder="Пошук" ng-model="query">
+    </div>
+    <div class="col s1 offset-s5">
+        <a class="btn-floating btn-large waves-effect waves-light red" ng-click="add()"><i class="material-icons">add</i></a>
     </div>
 </div>
 
-<section class="ram-section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
-    <div class="mdl-cell mdl-cell--11-col mdl-cell--1-offset">
-        <div class="mdl-textfield mdl-js-textfield">
-            <input class="mdl-textfield__input" type="text" id="sample3" ng-model="query">
-            <label class="mdl-textfield__label" for="sample3">Search</label>
+<ul class="collection">
+    <li class="collection-item avatar" ng-repeat="employee in employees | filter:query">
+        <i class="material-icons circle">person</i>
+        <span class="title"><h5>{{employee.lastname}} {{employee.name}} {{employee.surname}}</h5></span>
+        <p>
+            <div class="valign-wrapper"><i class="material-icons employee-attr-icon">assignment</i> {{employee.position}}, {{employee.department}}</div>
+            <div class="valign-wrapper"><i class="material-icons employee-attr-icon">phone</i> {{employee['phone number']}}</div>
+            <div class="valign-wrapper"><i class="material-icons employee-attr-icon">email</i> <a ng-href="mailto:{{employee.email}}">{{employee.email}}</a></div>
+            <div class="valign-wrapper"><i class="material-icons employee-attr-icon">business</i> {{employee.office}}</div>
+        </p>
+        <a href="" class="secondary-content" ng-click="employee.showEdit = !employee.showEdit"><i class="material-icons">edit</i></a>
+        <div class="row">
+            <form ng-submit="editEmployee(employee)" ng-show="employee.showEdit" ng-init="employee.showEdit = false" class="col s12">
+                <div class="row">
+                    <div class="col s6 input-field">
+                        <input type="text" placeholder="Department" ng-model="employee.department" value="{{employee.position}}">
+                    </div>
+                    <div class="col s6 input-field">
+                        <input type="text" placeholder="Position" ng-model="employee.position" value="{{employee.position}}">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s6 input-field">
+                        <input type="text" placeholder="Lastname" ng-model="employee.lastname">
+                    </div>
+                    <div class="col s6 input-field">
+                        <input type="text" placeholder="Name" ng-model="employee.name">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s6 input-field">
+                        <input type="text" placeholder="Surname" ng-model="employee.surname">
+                    </div>
+                    <div class="col s6 input-field">
+                        <input type="text" placeholder="Phone number" ng-model="employee['phone number']">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s6 input-field">
+                        <input type="text" placeholder="Email" ng-model="employee.email">
+                    </div>
+                    <div class="col s6 input-field">
+                        <input type="text" placeholder="Office" ng-model="employee.office">
+                    </div>
+                </div>
+                <button class="btn waves-effect waves-light" type="submit" name="action">Edit
+                    <i class="material-icons right">send</i>
+                </button>
+            </form>
         </div>
-    </div>
-    <div class="mdl-cell mdl-cell--12-col">
-        <ul class="demo-list-three mdl-list">
-            <li class="mdl-list__item mdl-list__item--three-line" ng-repeat="employee in employees | filter:query">
-                <span class="mdl-list__item-primary-content">
-                            <i class="material-icons mdl-list__item-avatar">person</i>
-                            <span>{{employee.lastname}} {{employee.name}} {{employee.surname}}</span>
-                <span class="mdl-list__item-text-body">{{employee.position}} {{employee.department}} {{employee['phone number']}} {{employee.email}} {{employee.office}}</span>
-                </span>
-            </li>
-        </ul>
-    </div>
-</section>
+    </li>
+</ul>

@@ -1,4 +1,7 @@
-.header-color--white {
+.employee-attr-icon {
+    margin-right: 10px; 
+}
+/*.header-color--white {
     background-color: white;
 }
 
@@ -34,3 +37,7 @@
     max-width: 860px;
     min-height: 100%;
 }
+
+.ram-list {
+    width: 100%;
+}*/
