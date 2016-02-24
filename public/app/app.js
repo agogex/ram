@@ -1,7 +1,14 @@
 /// <reference path="../../typings/angularjs/angular.d.ts" />
 
-angular.module('app', ['appRouter'])
+angular.module('app', ['appRouter', 'ngAnimate'])
+    .controller('mainMenuController', function($scope){
+        $scope.getCurrentPage = function(page){
+            var currentPage = window.location.pathname.split('/')[1] || 'home'; 
+            return  page == currentPage;
+        };
+    })
     .controller('employeesController', function ($scope, $http) {
+        $scope.currentPage = true;
         $scope.showCreateForm = false;
         $scope.formData = {};
 
@@ -29,7 +36,7 @@ angular.module('app', ['appRouter'])
                     console.error('Status: ' + status + '. Data: ' + data);
                     Materialize.toast('При створенні запису виникла помилка!', 4000, 'red lighten-2');
                 });
-            $scope.formData = {};
+            // $scope.formData = {};
         };
 
         $scope.showEditForm = function (showEdit) {

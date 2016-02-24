@@ -1,4 +1,8 @@
 
+html {
+font-family: GillSans, Calibri, Trebuchet, sans-serif;
+}
+        
 body {
     display: flex;
     min-height: 100vh;
@@ -17,7 +21,17 @@ main {
     position: relative !important;
     right: 0 !important;
     bottom: 0 !important;
+    z-index: 1 !important;
 }
+
+.ng-hide-add {
+    animation: 0.2s fadeOut ease;
+}
+.ng-hide-remove {
+    animation: 0.2s fadeIn ease; 
+}
+
+
 /*.header-color--white {
     background-color: white;
 }
