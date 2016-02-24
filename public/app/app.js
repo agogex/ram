@@ -23,6 +23,11 @@ angular.module('app', ['appRouter'])
                 .success(function () {
                     $scope.getEmployees();
                     $scope.showCreateForm = false;
+                    Materialize.toast('Запис успішно створено!', 4000, 'teal lighten-2');
+                })
+                .error(function (data, status) {
+                    console.error('Status: ' + status + '. Data: ' + data);
+                    Materialize.toast('При створенні запису виникла помилка!', 4000, 'red lighten-2');
                 });
             $scope.formData = {};
         };
@@ -35,8 +40,25 @@ angular.module('app', ['appRouter'])
             $http.put('/api/employees/' + employee._id, employee)
                 .success(function () {
                     $scope.getEmployees();
+                    Materialize.toast('Запис успішно збережено!', 4000, 'teal lighten-2');
+                })
+                .error(function (data, status) {
+                    console.error('Status: ' + status + '. Data: ' + data);
+                    Materialize.toast('При збереженні запису виникла помилка!', 4000, 'red lighten-2');
                 });
         };
+
+        $scope.deleteEmployee = function (employeeId) {
+            $http.delete('/api/employees/' + employeeId)
+                .success(function () {
+                    $scope.getEmployees();
+                    Materialize.toast('Запис успішно видалено!', 4000, 'teal lighten-2');
+                })
+                .error(function (data, status) {
+                    console.error('Status: ' + status + '. Data: ' + data);
+                    Materialize.toast('При видаленні запису виникла помилка!', 4000, 'red lighten-2');
+                });
+        }
         
         // angular.element(document).ready(function(){
         // 	componentHandler.upgradeAllRegistered();

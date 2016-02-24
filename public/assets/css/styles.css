@@ -1,5 +1,22 @@
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+      
 .employee-attr-icon {
     margin-right: 10px; 
+}
+
+.employee-fixed-action-btn {
+    position: relative !important;
+    right: 0 !important;
+    bottom: 0 !important;
 }
 /*.header-color--white {
     background-color: white;

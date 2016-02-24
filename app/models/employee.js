@@ -11,7 +11,8 @@ var EmployeeSchema = new Schema({
     "lastname": String,
     "name": String,
     "surname": String,
-    "phone number": String,
+    "phoneNumber": String,
+    "phoneNumber2": String,
     "email": String,
     "office": String
 });
