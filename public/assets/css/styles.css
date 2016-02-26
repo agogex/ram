@@ -1,6 +1,6 @@
 
 html {
-font-family: GillSans, Calibri, Trebuchet, sans-serif;
+    font-family: GillSans, Calibri, Trebuchet, sans-serif;
 }
         
 body {
@@ -24,11 +24,19 @@ main {
     z-index: 1 !important;
 }
 
+.news-fixed-action-btn {
+    position: relative !important;
+    top: 15px !important;
+    right: 15px !important;
+    bottom: 0 !important;
+    z-index: 1 !important;
+}
+
 .ng-hide-add {
-    animation: 0.2s fadeOut ease;
+    animation: 0.5s zoomOut ease;
 }
 .ng-hide-remove {
-    animation: 0.2s fadeIn ease; 
+    animation: 0.5s zoomIn ease; 
 }
 
 

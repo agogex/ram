@@ -9,6 +9,7 @@ var express = require('express'),
     mongoose = require('mongoose'),
     bodyParser = require('body-parser'),
     Employee = require('./app/models/employee'),
+    News = require('./app/models/news'),
     config = require('./config');
 
 app.use(express.static(__dirname + '/public'));
@@ -19,7 +20,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 var employeeRouter = require('./app/routes/employeeRoutes')(Employee, express);
+var newsRouter = require('./app/routes/newsRoutes')(News, express);
 
+app.use('/api/news', newsRouter);
 app.use('/api/employees', employeeRouter);
 
 app.use('*', function (req, res) {

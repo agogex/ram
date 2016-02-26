@@ -15,6 +15,10 @@ angular.module('appRouter', ['ngRoute'])
                 templateUrl: '/app/views/pages/news.html',
                 controller: 'newsController'
             })
+            .when('/news/:id', {
+                templateUrl: '/app/views/pages/article.html',
+                controller: 'articleController'
+            })
             .when('/contacts', {
                 templateUrl: '/app/views/pages/contacts.html',
                 controller: 'contactsController'
