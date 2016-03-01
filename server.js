@@ -3,6 +3,8 @@
 /// <reference path="typings/mongoose/mongoose.d.ts" />
 /// <reference path="typings/body-parser/body-parser.d.ts" />
 
+require('dotenv').load();
+
 var express = require('express'),
     app = express(),
     path = require('path'),

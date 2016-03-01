@@ -105,7 +105,7 @@ angular.module('app', ['appRouter', 'ngAnimate'])
                 });
             // $scope.formData = {};
         };
-        
+
         $scope.editNews = function (news) {
             $http.put('/api/news/' + news._id, news)
                 .success(function () {
@@ -130,13 +130,36 @@ angular.module('app', ['appRouter', 'ngAnimate'])
                 });
         }
     })
-    .controller('articleController', function($scope, $http, $routeParams){
+    .controller('articleController', function ($scope, $http, $routeParams) {
         $http.get('/api/news/' + $routeParams.id)
-            .success(function(data){
+            .success(function (data) {
                 $scope.news = data;
             })
-            .error(function(data){
+            .error(function (data) {
                 console.error(data);
             });
+    })
+    .controller('contactsController', function () {
+        var position = [50.4261108, 30.53702469999996];
+
+        var latLng = new google.maps.LatLng(position[0], position[1]);
+
+        var mapOptions = {
+            zoom: 17, // initialize zoom level - the max value is 21
+            streetViewControl: false, // hide the yellow Street View pegman
+            scaleControl: true, // allow users to zoom the Google Map
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            center: latLng
+        };
+
+        map = new google.maps.Map(document.getElementById('contacts-map'), mapOptions);
+	 
+        // Show the default red marker at the location
+        marker = new google.maps.Marker({
+            position: latLng,
+            map: map,
+            draggable: false,
+            animation: google.maps.Animation.DROP
+        });
     });
 

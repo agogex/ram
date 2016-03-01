@@ -39,7 +39,14 @@ main {
     animation: 0.5s zoomIn ease; 
 }
 
+.contact-icon {
+    margin-right: 10px;
+}
 
+#contacts-map {
+    height: 400px;
+    width: 100%;
+}
 /*.header-color--white {
     background-color: white;
 }

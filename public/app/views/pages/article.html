@@ -1,13 +1,15 @@
-<div class="row">
-    <div class="col s10 offset-s1">
-        <div class="card">
-            <div class="card-content">
-                <h5>{{news.title}}</h5>
-                <p><i class="material-icons tiny">today</i> <i>{{news.date | date: 'longDate'}}</i></p>
-                <p style="white-space: pre-wrap">{{news.article}}</p>
-            </div>
-            <div class="card-action">
-                <a href="/news">Назад</a>
+<div class="container">
+    <div class="row">
+        <div class="col s10 offset-s1">
+            <div class="card">
+                <div class="card-content">
+                    <h5>{{news.title}}</h5>
+                    <p><i class="material-icons tiny">today</i> <i>{{news.date | date: 'longDate'}}</i></p>
+                    <p style="white-space: pre-wrap">{{news.article}}</p>
+                </div>
+                <div class="card-action">
+                    <a href="/news">Назад</a>
+                </div>
             </div>
         </div>
     </div>
