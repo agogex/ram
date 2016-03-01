@@ -1,84 +1,86 @@
-<div class="row">
-    <form ng-submit="createNews()" ng-show="showCreateForm" class="col s10 offset-s1">
-        <div class="row">
-            <div class="col s6 input-field">
-                <input type="text" required="required" ng-model="formData.title">
-                <label>Заголовок</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col s12 input-field">
-                <textarea class="materialize-textarea" ng-model="formData.article" required="required"></textarea>
-                <label>Стаття</label>
-            </div>
-        </div>
-        <button class="btn waves-effect waves-light" type="submit" name="action">Create
-            <i class="material-icons right">send</i>
-        </button>
-    </form>
-</div>
-
-<div class="row">
-    <div class="col s1 offset-s10">
-        <a class="btn-floating btn-large waves-effect waves-light red" ng-click="add()"><i class="material-icons">add</i></a>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col s10 offset-s1">
-        <div class="card" ng-repeat="n in news">
-            <div class="fixed-action-btn horizontal news-fixed-action-btn right">
-                <a class="btn-floating btn-large red">
-                    <i class="large mdi-navigation-menu"></i>
-                </a>
-                <ul>
-                    <li>
-                        <a class="btn-floating red" ng-click="n.showDelete = !n.showDelete; n.showEdit = false"><i class="material-icons">delete</i></a>
-                    </li>
-                    <li>
-                        <a href="" class="btn-floating blue" ng-click="n.showEdit = !n.showEdit; n.showDelete = false"><i class="material-icons">edit</i></a>
-                    </li>
-                </ul>
-            </div>
-            <div class="card-content">
-                <h5>{{n.title}}</h5>
-                <p><i class="material-icons tiny">today</i> <i>{{n.date | date: 'longDate'}}</i></p>
-                <p>{{n.article.substring(0, 200)}}...</p>
-            </div>
-            
-            <div class="row" style="margin-top: 10px" ng-show="n.showDelete" ng-init="n.showDelete = false">
-            <div class="col s10 card-panel offset-s1">
-                <div class="row">
-                    <h5 class="red-text text-lighten-2 center-align">Видалити запис?</h5>
-                    <div class="col s2 offset-s4">
-                        <a class="waves-effect waves-light btn red" ng-click="deleteNews(n._id)"><i class="material-icons">delete</i></a>
-                    </div>
-                    <div class="col s2">
-                        <a class="waves-effect waves-light btn" ng-click="n.showDelete = !n.showDelete">Відміна</a>
-                    </div>
+<div class="container">
+    <div class="row">
+        <form ng-submit="createNews()" ng-show="showCreateForm" class="col s10 offset-s1">
+            <div class="row">
+                <div class="col s6 input-field">
+                    <input type="text" required="required" ng-model="formData.title">
+                    <label>Заголовок</label>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <form ng-submit="editNews(n)" ng-show="n.showEdit" ng-init="n.showEdit = false" class="col s10 offset-s1">
-                <div class="row">
-            <div class="col s6 input-field">
-                <input type="text" required="required" ng-model="n.title" placeholder="Заголовок">
+            <div class="row">
+                <div class="col s12 input-field">
+                    <textarea class="materialize-textarea" ng-model="formData.article" required="required"></textarea>
+                    <label>Стаття</label>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col s12 input-field">
-                <textarea class="materialize-textarea" ng-model="n.article" required="required" placeholder="Стаття"></textarea>
-            </div>
-        </div>
-        <button class="btn waves-effect waves-light" type="submit" name="action">Редагувати
-            <i class="material-icons right">send</i>
-        </button>
-            </form>
-        </div>
+            <button class="btn waves-effect waves-light" type="submit" name="action">Create
+                <i class="material-icons right">send</i>
+            </button>
+        </form>
+    </div>
 
-            <div class="card-action">
-                <a href="/news/{{n._id}}">Читати</a>
+    <div class="row">
+        <div class="col s1 offset-s10">
+            <a class="btn-floating btn-large waves-effect waves-light red" ng-click="add()"><i class="material-icons">add</i></a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s10 offset-s1">
+            <div class="card" ng-repeat="n in news track by $index">
+                <div class="fixed-action-btn horizontal news-fixed-action-btn right">
+                    <a class="btn-floating btn-large red">
+                        <i class="large mdi-navigation-menu"></i>
+                    </a>
+                    <ul>
+                        <li>
+                            <a class="btn-floating red" ng-click="n.showDelete = !n.showDelete; n.showEdit = false"><i class="material-icons">delete</i></a>
+                        </li>
+                        <li>
+                            <a href="" class="btn-floating blue" ng-click="n.showEdit = !n.showEdit; n.showDelete = false"><i class="material-icons">edit</i></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-content">
+                    <h5>{{n.title}}</h5>
+                    <p><i class="material-icons tiny">today</i> <i>{{n.date | date: 'longDate'}}</i></p>
+                    <p>{{n.article.substring(0, 200)}}...</p>
+                </div>
+
+                <div class="row" style="margin-top: 10px" ng-show="n.showDelete" ng-init="n.showDelete = false">
+                    <div class="col s10 card-panel offset-s1">
+                        <div class="row">
+                            <h5 class="red-text text-lighten-2 center-align">Видалити запис?</h5>
+                            <div class="col s2 offset-s4">
+                                <a class="waves-effect waves-light btn red" ng-click="deleteNews(n._id)"><i class="material-icons">delete</i></a>
+                            </div>
+                            <div class="col s2">
+                                <a class="waves-effect waves-light btn" ng-click="n.showDelete = !n.showDelete">Відміна</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <form ng-submit="editNews(n)" ng-show="n.showEdit" ng-init="n.showEdit = false" class="col s10 offset-s1">
+                        <div class="row">
+                            <div class="col s6 input-field">
+                                <input type="text" required="required" ng-model="n.title" placeholder="Заголовок">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12 input-field">
+                                <textarea class="materialize-textarea" ng-model="n.article" required="required" placeholder="Стаття"></textarea>
+                            </div>
+                        </div>
+                        <button class="btn waves-effect waves-light" type="submit" name="action">Редагувати
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </form>
+                </div>
+
+                <div class="card-action">
+                    <a href="/news/{{n._id}}">Читати</a>
+                </div>
             </div>
         </div>
     </div>

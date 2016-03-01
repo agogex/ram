@@ -1,133 +1,154 @@
-<div class="row">
-    <form ng-submit="createNewEpmloyee()" ng-show="showCreateForm" class="col s12">
-        <div class="row">
-            <div class="col s4 input-field">
-                <input type="text" required="required" placeholder="Lastname" ng-model="formData.lastname">
+<div class="container">
+    <div class="row">
+        <form ng-submit="createNewEpmloyee()" ng-show="showCreateForm" class="col s10 offset-s1">
+            <div class="row">
+                <div class="col s4 input-field">
+                    <input type="text" required="required" ng-model="formData.lastname">
+                    <label>Прізвище</label>
+                </div>
+                <div class="col s4 input-field">
+                    <input type="text" required="required" ng-model="formData.name">
+                    <label>Ім'я</label>
+                </div>
+                <div class="col s4 input-field">
+                    <input type="text" required="required" ng-model="formData.surname">
+                    <label>По батькові</label>
+                </div>
             </div>
-            <div class="col s4 input-field">
-                <input type="text" required="required" placeholder="Name" ng-model="formData.name">
+            <div class="row">
+                <div class="col s6 input-field">
+                    <input type="text" required="required" ng-model="formData.department">
+                    <label>Підрозділ</label>
+                </div>
+                <div class="col s6 input-field">
+                    <input type="text" required="required" ng-model="formData.position">
+                    <label>Посада</label>
+                </div>
             </div>
-            <div class="col s4 input-field">
-                <input type="text" required="required" placeholder="Surname" ng-model="formData.surname">
+            <div class="row">
+                <div class="col s6 input-field">
+                    <input type="text" required="required" ng-model="formData.phoneNumber">
+                    <label>Телефон</label>
+                </div>
+                <div class="col s6 input-field">
+                    <input type="text" required="required" ng-model="formData.phoneNumber2">
+                    <label>Телефон 2</label>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col s6 input-field">
-                <input type="text" required="required" placeholder="Department" ng-model="formData.department">
+            <div class="row">
+                <div class="col s6 input-field">
+                    <input type="email" required="required" ng-model="formData.email">
+                    <label>Електронна адреса</label>
+                </div>
+                <div class="col s6 input-field">
+                    <input type="text" required="required" placeholder="Office" ng-model="formData.office">
+                    <label>Офіс</label>
+                </div>
             </div>
-            <div class="col s6 input-field">
-                <input type="text" required="required" placeholder="Position" ng-model="formData.position">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col s6 input-field">
-                <input type="text" required="required" placeholder="Phone number" ng-model="formData.phoneNumber">
-            </div>
-            <div class="col s6 input-field">
-                <input type="text" required="required" placeholder="Phone number 2" ng-model="formData.phoneNumber2">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col s6 input-field">
-                <input type="email" required="required" placeholder="Email" ng-model="formData.email">
-            </div>
-            <div class="col s6 input-field">
-                <input type="text" required="required" placeholder="Office" ng-model="formData.office">
-            </div>
-        </div>
-        <button class="btn waves-effect waves-light" type="submit" name="action">Create
-            <i class="material-icons right">send</i>
-        </button>
-    </form>
-</div>
-
-<div class="row">
-    <div class="col s6 input-field">
-        <input type="text" placeholder="Пошук" ng-model="query">
+            <button class="btn waves-effect waves-light" type="submit" name="action">Створити
+                <i class="material-icons right">send</i>
+            </button>
+        </form>
     </div>
-    <div class="col s1 offset-s5">
-        <a class="btn-floating btn-large waves-effect waves-light red" ng-click="add()"><i class="material-icons">add</i></a>
+
+    <div class="row">
+        <div class="col s5 offset-s1 input-field">
+            <i class="material-icons prefix">search</i>
+            <input type="text" ng-model="query">
+            <label>Пошук</label>
+        </div>
+        <div class="col s1 offset-s4">
+            <a class="btn-floating btn-large waves-effect waves-light red" ng-click="add()"><i class="material-icons">add</i></a>
+        </div>
     </div>
+    <div class="row">
+        <div class="col s10 offset-s1">
+            <ul class="collection">
+                <li class="collection-item avatar" ng-repeat="employee in employees | filter:query">
+                    <i class="material-icons circle">person</i>
+                    <span class="title"><h5>{{employee.lastname}} {{employee.name}} {{employee.surname}}</h5></span>
+                    <p>
+                        <div class="valign-wrapper"><i class="material-icons employee-attr-icon">assignment</i> {{employee.position}}, {{employee.department}}</div>
+                        <div class="valign-wrapper"><i class="material-icons employee-attr-icon">phone</i> {{employee.phoneNumber}}, {{employee.phoneNumber2}}</div>
+                        <div class="valign-wrapper"><i class="material-icons employee-attr-icon">email</i> <a ng-href="mailto:{{employee.email}}">{{employee.email}}</a></div>
+                        <div class="valign-wrapper"><i class="material-icons employee-attr-icon">business</i> {{employee.office}}</div>
+                    </p>
+                    <div class="secondary-content">
+                        <div class="fixed-action-btn horizontal employee-fixed-action-btn" style="bottom: 45px; right: 24px;">
+                            <a class="btn-floating btn-large red">
+                                <i class="large mdi-navigation-menu"></i>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a class="btn-floating red" ng-click="employee.showDelete = !employee.showDelete; employee.showEdit = false"><i class="material-icons">delete</i></a>
+                                </li>
+                                <li>
+                                    <a href="" class="btn-floating blue" ng-click="employee.showEdit = !employee.showEdit; employee.showDelete = false"><i class="material-icons">edit</i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--<a href="" class="secondary-content" ng-click="employee.showEdit = !employee.showEdit"><i class="material-icons">edit</i></a>-->
+                    <div class="row" style="margin-top: 10px" ng-show="employee.showDelete" ng-init="employee.showDelete = false">
+                        <div class="col s11 card-panel">
+                            <div class="row">
+                                <h5 class="red-text text-lighten-2 center-align">Видалити запис?</h5>
+                                <div class="col s2 offset-s4">
+                                    <a class="waves-effect waves-light btn red" ng-click="deleteEmployee(employee._id)"><i class="material-icons">delete</i></a>
+                                </div>
+                                <div class="col s2">
+                                    <a class="waves-effect waves-light btn" ng-click="employee.showDelete = !employee.showDelete">Відміна</a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+                        <form ng-submit="editEmployee(employee)" ng-show="employee.showEdit" ng-init="employee.showEdit = false" class="col s12">
+                            <div class="row">
+                                <div class="col s4 input-field">
+                                    <input type="text" required="required" placeholder="Прізвище" ng-model="employee.lastname">
+                                </div>
+                                <div class="col s4 input-field">
+                                    <input type="text" required="required" placeholder="Ім'я" ng-model="employee.name">
+                                </div>
+                                <div class="col s4 input-field">
+                                    <input type="text" required="required" placeholder="По батькові" ng-model="employee.surname">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s6 input-field">
+                                    <input type="text" required="required" placeholder="Підрозділ" ng-model="employee.department">
+                                </div>
+                                <div class="col s6 input-field">
+                                    <input type="text" required="required" placeholder="Посада" ng-model="employee.position">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s6 input-field">
+                                    <input type="text" required="required" placeholder="Телефон" ng-model="employee.phoneNumber">
+                                </div>
+                                <div class="col s6 input-field">
+                                    <input type="text" required="required" placeholder="Телефон 2" ng-model="employee.phoneNumber2">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s6 input-field">
+                                    <input type="email" required="required" placeholder="Електронна адреса" ng-model="employee.email">
+                                </div>
+                                <div class="col s6 input-field">
+                                    <input type="text" required="required" placeholder="Офіс" ng-model="employee.office">
+                                </div>
+                            </div>
+                            <button class="btn waves-effect waves-light" type="submit" name="action">Редагувати
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
 </div>
-
-<ul class="collection">
-    <li class="collection-item avatar" ng-repeat="employee in employees | filter:query">
-        <i class="material-icons circle">person</i>
-        <span class="title"><h5>{{employee.lastname}} {{employee.name}} {{employee.surname}}</h5></span>
-        <p>
-            <div class="valign-wrapper"><i class="material-icons employee-attr-icon">assignment</i> {{employee.position}}, {{employee.department}}</div>
-            <div class="valign-wrapper"><i class="material-icons employee-attr-icon">phone</i> {{employee.phoneNumber}}, {{employee.phoneNumber2}}</div>
-            <div class="valign-wrapper"><i class="material-icons employee-attr-icon">email</i> <a ng-href="mailto:{{employee.email}}">{{employee.email}}</a></div>
-            <div class="valign-wrapper"><i class="material-icons employee-attr-icon">business</i> {{employee.office}}</div>
-        </p>
-        <div class="secondary-content">
-            <div class="fixed-action-btn horizontal employee-fixed-action-btn" style="bottom: 45px; right: 24px;">
-                <a class="btn-floating btn-large red">
-                    <i class="large mdi-navigation-menu"></i>
-                </a>
-                <ul>
-                    <li><a class="btn-floating red" ng-click="employee.showDelete = !employee.showDelete; employee.showEdit = false"><i class="material-icons">delete</i></a></li>
-                    <li><a href="" class="btn-floating blue" ng-click="employee.showEdit = !employee.showEdit; employee.showDelete = false"><i class="material-icons">edit</i></a></li>
-                </ul>
-            </div>
-        </div>
-        <!--<a href="" class="secondary-content" ng-click="employee.showEdit = !employee.showEdit"><i class="material-icons">edit</i></a>-->
-        <div class="row" style="margin-top: 10px" ng-show="employee.showDelete" ng-init="employee.showDelete = false">
-            <div class="col s10 card-panel">
-                <div class="row">
-                    <h5 class="red-text text-lighten-2 center-align">Видалити запис {{employee.lastname}} {{employee.name}} {{employee.surname}}?</h5>
-                    <div class="col s2 offset-s4">
-                        <a class="waves-effect waves-light btn red" ng-click="deleteEmployee(employee._id)"><i class="material-icons">delete</i></a>
-                    </div>
-                    <div class="col s2">
-                        <a class="waves-effect waves-light btn" ng-click="employee.showDelete = !employee.showDelete">Відміна</a>
-                    </div>
-                </div>
-            </div>
-
-
-        </div>
-        <div class="row">
-            <form ng-submit="editEmployee(employee)" ng-show="employee.showEdit" ng-init="employee.showEdit = false" class="col s12">
-                <div class="row">
-                    <div class="col s4 input-field">
-                        <input type="text" required="required" placeholder="Lastname" ng-model="employee.lastname">
-                    </div>
-                    <div class="col s4 input-field">
-                        <input type="text" required="required" placeholder="Name" ng-model="employee.name">
-                    </div>
-                    <div class="col s4 input-field">
-                        <input type="text" required="required" placeholder="Surname" ng-model="employee.surname">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s6 input-field">
-                        <input type="text" required="required" placeholder="Department" ng-model="employee.department">
-                    </div>
-                    <div class="col s6 input-field">
-                        <input type="text" required="required" placeholder="Position" ng-model="employee.position">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s6 input-field">
-                        <input type="text" required="required" placeholder="Phone number" ng-model="employee.phoneNumber">
-                    </div>
-                    <div class="col s6 input-field">
-                        <input type="text" required="required" placeholder="Phone number" ng-model="employee.phoneNumber2">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s6 input-field">
-                        <input type="email" required="required" placeholder="Email" ng-model="employee.email">
-                    </div>
-                    <div class="col s6 input-field">
-                        <input type="text" required="required" placeholder="Office" ng-model="employee.office">
-                    </div>
-                </div>
-                <button class="btn waves-effect waves-light" type="submit" name="action">Edit
-                    <i class="material-icons right">send</i>
-                </button>
-            </form>
-        </div>
-    </li>
-</ul>
