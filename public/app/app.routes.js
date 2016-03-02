@@ -22,6 +22,10 @@ angular.module('appRouter', ['ngRoute'])
             .when('/contacts', {
                 templateUrl: '/app/views/pages/contacts.html',
                 controller: 'contactsController'
+            })
+            .when('/login', {
+                templateUrl: '/app/views/pages/login.html',
+                controller: 'loginController'
             });
         $locationProvider.html5Mode(true);
     });

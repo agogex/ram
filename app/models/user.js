@@ -19,11 +19,11 @@ var UserSchema = new Schema({
 
 UserSchema.methods.setPassword = function(password){
     this.salt = crypto.randomBytes(16).toString('hex');
-    this.hash = encryptPass(password);  
+    this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
 };
 
 UserSchema.methods.validPassword = function(password){
-    return this.hash == encryptPass(password);
+    return this.hash == crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
 };
 
 UserSchema.methods.generateJwt = function(){
@@ -37,8 +37,8 @@ UserSchema.methods.generateJwt = function(){
   }, process.env.JWT_SECRET);  
 };
 
-function encryptPass(password){
-    return crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
-}
+// function encryptPass(password){
+//     return crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
+// }
 
 module.exports = mongoose.model('User', UserSchema);

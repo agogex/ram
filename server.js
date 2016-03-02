@@ -10,9 +10,22 @@ var express = require('express'),
     path = require('path'),
     mongoose = require('mongoose'),
     bodyParser = require('body-parser'),
+    passport = require('passport'),
     Employee = require('./app/models/employee'),
     News = require('./app/models/news'),
+    User = require('./app/models/user'),
     config = require('./config');
+    
+    require('./app/config/passport');
+
+function createUser(name, password){
+    var user = new User();
+    user.name = name;
+    user.setPassword(password);
+    user.save();
+}
+
+// createUser('admin', 'password');
 
 app.use(express.static(__dirname + '/public'));
 
@@ -23,6 +36,8 @@ app.use(bodyParser.json());
 
 var employeeRouter = require('./app/routes/employeeRoutes')(Employee, express);
 var newsRouter = require('./app/routes/newsRoutes')(News, express);
+
+app.use(passport.initialize());
 
 app.use('/api/news', newsRouter);
 app.use('/api/employees', employeeRouter);
