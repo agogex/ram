@@ -37,8 +37,4 @@ UserSchema.methods.generateJwt = function(){
   }, process.env.JWT_SECRET);  
 };
 
-// function encryptPass(password){
-//     return crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
-// }
-
 module.exports = mongoose.model('User', UserSchema);
