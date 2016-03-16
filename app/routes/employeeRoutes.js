@@ -2,6 +2,10 @@
 /// <reference path="../../typings/express/express.d.ts" />
 /// <reference path="../../typings/mongoose/mongoose.d.ts" />
 /// <reference path="../../typings/body-parser/body-parser.d.ts" />
+var jwt = require('express-jwt');
+var auth = jwt({
+    secret: process.env.JWT_SECRET
+});
 
 var routes = function (Employee, express) {
     var employeeRouter = express.Router();
@@ -16,10 +20,16 @@ var routes = function (Employee, express) {
                 }
             });
         })
-        .post(function (req, res) {
-            var employee = new Employee(req.body);
-            employee.save();
-            res.status(201).send(employee);
+        .post(auth, function (req, res) {
+            if (!req.user._id) {
+                res.status(401).json({
+                    "message": "UnauthorizedError: private profile"
+                });
+            } else {
+                var employee = new Employee(req.body);
+                employee.save();
+                res.status(201).send(employee);
+            }
         });
 
     employeeRouter.use('/:id', function (req, res, next) {
@@ -52,11 +62,11 @@ var routes = function (Employee, express) {
                 }
             });
         })
-        .delete(function(req, res){
-            req.employee.remove(function(err){
-                if(err){
+        .delete(function (req, res) {
+            req.employee.remove(function (err) {
+                if (err) {
                     res.status(500).send(err);
-                } else{
+                } else {
                     res.status(204).send('Removed');
                 }
             });
