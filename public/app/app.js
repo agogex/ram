@@ -161,5 +161,17 @@ angular.module('app', ['appRouter', 'ngAnimate'])
             draggable: false,
             animation: google.maps.Animation.DROP
         });
+    })
+    .controller('loginController', function($scope, authentication){
+        $scope.credentials = {
+            username: "",
+            password: ""
+        };
+        $scope.login = function(){
+            authentication.login($scope.credentials).error(function(err){
+                Materialize.toast(err.message, 4000, 'red lighten-2');
+                console.log(err);
+            });
+        };
     });
 

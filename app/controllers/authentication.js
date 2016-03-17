@@ -7,21 +7,23 @@ var mongoose = require('mongoose');
 var User = mongoose.model('User');
 
 module.exports.login = function (req, res) {
-	passport.authenticate('local', function(err, user, info){
+	
+	passport.authenticate('local', function (err, user, info) {
+		console.log(user);
 		var token;
-		if(err) {
+		if (err) {
 			res.status(404).json(err);
 			return;
 		}
-		
-		if(user) {
+
+		if (user) {
 			token = user.generateJwt();
 			res.status(200);
 			res.json({
-				"token" : token
+				"token": token
 			});
 		} else {
 			res.status(401).json(info);
 		}
-	})(res, req);
-}
+	})(req, res);
+};

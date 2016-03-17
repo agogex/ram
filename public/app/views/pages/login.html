@@ -1,14 +1,14 @@
 <div class="container">
-	<form>
+	<form ng-submit="login()">
 		<div class="row">
 			<div class="input-field col s6">
-				<input id="login" type="text" class="validate">
+				<input id="login" type="text" class="validate" ng-model="credentials.username">
 				<label for="login">Login</label>
 			</div>
 		</div>
 		<div class="row">
 			<div class="input-field col s6">
-				<input id="password" type="password" class="validate">
+				<input id="password" type="password" class="validate" ng-model="credentials.password">
 				<label for="password">Password</label>
 			</div>
 		</div>

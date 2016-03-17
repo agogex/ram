@@ -1,6 +1,6 @@
 /// <reference path="../../../typings/angularjs/angular.d.ts" />
 
-angular.module('meanApp').service('authentication', authentication);
+angular.module('app').service('authentication', authentication);
 
 authentication.$inject = ['$http', '$window'];
 

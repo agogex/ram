@@ -7,6 +7,7 @@ require('dotenv').load();
 
 var express = require('express'),
     app = express(),
+    morgan = require('morgan'),
     path = require('path'),
     mongoose = require('mongoose'),
     bodyParser = require('body-parser'),
@@ -15,8 +16,9 @@ var express = require('express'),
     News = require('./app/models/news'),
     User = require('./app/models/user'),
     config = require('./config');
+
+require('./app/config/passport');    
     
-    require('./app/config/passport');
 
 function createUser(name, password){
     var user = new User();
@@ -27,6 +29,7 @@ function createUser(name, password){
 
 // createUser('admin', 'password');
 
+// app.use(morgan('dev'));
 app.use(express.static(__dirname + '/public'));
 
 mongoose.connect(config.database);
@@ -34,11 +37,14 @@ mongoose.connect(config.database);
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-var employeeRouter = require('./app/routes/employeeRoutes')(Employee, express);
-var newsRouter = require('./app/routes/newsRoutes')(News, express);
 
 app.use(passport.initialize());
 
+var authRouter = require('./app/routes/authRoutes')(User, express);
+var employeeRouter = require('./app/routes/employeeRoutes')(Employee, express);
+var newsRouter = require('./app/routes/newsRoutes')(News, express);
+
+app.use('/login', authRouter);
 app.use('/api/news', newsRouter);
 app.use('/api/employees', employeeRouter);
 
