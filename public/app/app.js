@@ -7,7 +7,7 @@ angular.module('app', ['appRouter', 'ngAnimate'])
             return page == currentPage;
         };
     })
-    .controller('employeesController', function ($scope, $http) {
+    .controller('employeesController', function ($scope, $http, authentication) {
         $scope.currentPage = true;
         $scope.showCreateForm = false;
         $scope.formData = {};
@@ -26,6 +26,7 @@ angular.module('app', ['appRouter', 'ngAnimate'])
         };
 
         $scope.createNewEpmloyee = function () {
+            $http.defaults.headers.common.Authorization = 'Bearer '+ authentication.getToken();
             $http.post('/api/employees', $scope.formData)
                 .success(function () {
                     $scope.getEmployees();
@@ -66,7 +67,7 @@ angular.module('app', ['appRouter', 'ngAnimate'])
                     Materialize.toast('При видаленні запису виникла помилка!', 4000, 'red lighten-2');
                 });
         }
-        
+
         // angular.element(document).ready(function(){
         // 	componentHandler.upgradeAllRegistered();
         // });
@@ -153,7 +154,7 @@ angular.module('app', ['appRouter', 'ngAnimate'])
         };
 
         map = new google.maps.Map(document.getElementById('contacts-map'), mapOptions);
-	 
+
         // Show the default red marker at the location
         marker = new google.maps.Marker({
             position: latLng,
@@ -162,16 +163,21 @@ angular.module('app', ['appRouter', 'ngAnimate'])
             animation: google.maps.Animation.DROP
         });
     })
-    .controller('loginController', function($scope, authentication){
+    .controller('loginController', function($scope, $location, authentication){
         $scope.credentials = {
             username: "",
             password: ""
         };
         $scope.login = function(){
-            authentication.login($scope.credentials).error(function(err){
-                Materialize.toast(err.message, 4000, 'red lighten-2');
-                console.log(err);
-            });
+            authentication.login($scope.credentials)
+                .success(function(){
+                    Materialize.toast('Авторизація пройшла успішно!', 4000, 'teal lighten-2');
+                    $location.path('/');
+                })
+                .error(function(err){
+                    Materialize.toast(err.message, 4000, 'red lighten-2');
+                    console.log(err);
+                });
         };
     });
 
