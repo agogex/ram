@@ -1,13 +1,19 @@
 /// <reference path="../../typings/angularjs/angular.d.ts" />
 
 angular.module('app', ['appRouter', 'ngAnimate'])
-    .controller('mainMenuController', function ($scope) {
+    .controller('mainMenuController', function ($scope, $rootScope, $location, authentication) {
         $scope.getCurrentPage = function (page) {
             var currentPage = window.location.pathname.split('/')[1] || 'home';
             return page == currentPage;
         };
+        $scope.logout = function () {
+            authentication.logout();
+            $rootScope.isLoggedIn = false;
+            $location.path('/');
+        };
+        $rootScope.isLoggedIn = authentication.isLoggedIn();
     })
-    .controller('employeesController', function ($scope, $http, authentication) {
+    .controller('employeesController', function ($scope, $http) {
         $scope.currentPage = true;
         $scope.showCreateForm = false;
         $scope.formData = {};
@@ -35,9 +41,10 @@ angular.module('app', ['appRouter', 'ngAnimate'])
                 })
                 .error(function (data, status) {
                     console.error('Status: ' + status + '. Data: ' + data);
-                    Materialize.toast('При створенні запису виникла помилка!', 4000, 'red lighten-2');
+                    var message = status == 401 ? 'Помилка авторизації' : 'При створенні запису виникла помилка!';
+                    Materialize.toast(message, 4000, 'red lighten-2');
                 });
-            // $scope.formData = {};
+            $scope.formData = {};
         };
 
         $scope.showEditForm = function (showEdit) {
@@ -75,10 +82,11 @@ angular.module('app', ['appRouter', 'ngAnimate'])
     .controller('homeController', function ($scope) {
         $scope.message = 'Home Page';
     })
-    .controller('newsController', function ($scope, $http) {
+    .controller('newsController', function ($scope, $http, $rootScope, authentication) {
         $scope.currentPage = true;
         $scope.showCreateForm = false;
         $scope.formData = {};
+        $rootScope.isLoggedIn = authentication.isLoggedIn();
 
         $scope.getNews = function () {
             $http.get('/api/news')
@@ -163,7 +171,7 @@ angular.module('app', ['appRouter', 'ngAnimate'])
             animation: google.maps.Animation.DROP
         });
     })
-    .controller('loginController', function($scope, $location, authentication){
+    .controller('loginController', function($scope, $rootScope, $location, authentication){
         $scope.credentials = {
             username: "",
             password: ""
@@ -173,6 +181,7 @@ angular.module('app', ['appRouter', 'ngAnimate'])
                 .success(function(){
                     Materialize.toast('Авторизація пройшла успішно!', 4000, 'teal lighten-2');
                     $location.path('/');
+                    $rootScope.isLoggedIn = true;
                 })
                 .error(function(err){
                     Materialize.toast(err.message, 4000, 'red lighten-2');

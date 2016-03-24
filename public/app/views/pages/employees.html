@@ -59,7 +59,7 @@
         </div>
 
 
-        <div class="col s1 offset-s4">
+        <div class="col s1 offset-s4" ng-show="isLoggedIn">
             <a class="btn-floating btn-large waves-effect waves-light red" ng-click="add()"><i class="material-icons">add</i></a>
         </div>
     </div>
@@ -75,7 +75,7 @@
                         <div class="valign-wrapper"><i class="material-icons employee-attr-icon">email</i> <a ng-href="mailto:{{employee.email}}">{{employee.email}}</a></div>
                         <div class="valign-wrapper"><i class="material-icons employee-attr-icon">business</i> {{employee.office}}</div>
                     </p>
-                    <div class="secondary-content">
+                    <div class="secondary-content" ng-show="isLoggedIn">
                         <div class="fixed-action-btn horizontal employee-fixed-action-btn" style="bottom: 45px; right: 24px;">
                             <a class="btn-floating btn-large red">
                                 <i class="large mdi-navigation-menu"></i>
