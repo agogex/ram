@@ -13,7 +13,7 @@ angular.module('app', ['appRouter', 'ngAnimate'])
         };
         $rootScope.isLoggedIn = authentication.isLoggedIn();
     })
-    .controller('employeesController', function ($scope, $http) {
+    .controller('employeesController', function ($scope, $http, authentication) {
         $scope.currentPage = true;
         $scope.showCreateForm = false;
         $scope.formData = {};
@@ -86,7 +86,6 @@ angular.module('app', ['appRouter', 'ngAnimate'])
         $scope.currentPage = true;
         $scope.showCreateForm = false;
         $scope.formData = {};
-        $rootScope.isLoggedIn = authentication.isLoggedIn();
 
         $scope.getNews = function () {
             $http.get('/api/news')
