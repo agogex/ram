@@ -22,10 +22,10 @@
             <div class="nav-wrapper">
                 <a href="#!" class="brand-logo">Logo</a>
                 <ul class="right">
-                    <li ng-class="{active: getCurrentPage('home')}"><a href="/">Головна</a></li>
-                    <li ng-class="{active: getCurrentPage('employees')}"><a href="/employees">Довідник</a></li>
-                    <li ng-class="{active: getCurrentPage('news')}"><a href="/news">Новини</a></li>
-                    <li ng-class="{active: getCurrentPage('contacts')}"><a href="/contacts">Контакти</a></li>
+                    <li ng-class="{active: isActive('home')}"><a href="/">Головна</a></li>
+                    <li ng-class="{active: isActive('employees')}"><a href="/employees">Довідник</a></li>
+                    <li ng-class="{active: isActive('news')}"><a href="/news/page/1">Новини</a></li>
+                    <li ng-class="{active: isActive('contacts')}"><a href="/contacts">Контакти</a></li>
                     <li ng-show="isLoggedIn"><a href="" ng-click="logout()"><i class="large material-icons">input</i></a></li>
                 </ul>
             </div>

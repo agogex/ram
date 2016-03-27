@@ -2,7 +2,7 @@
 
 angular.module('app', ['appRouter', 'ngAnimate'])
     .controller('mainMenuController', function ($scope, $rootScope, $location, authentication) {
-        $scope.getCurrentPage = function (page) {
+        $scope.isActive = function (page) {
             var currentPage = window.location.pathname.split('/')[1] || 'home';
             return page == currentPage;
         };
@@ -32,8 +32,12 @@ angular.module('app', ['appRouter', 'ngAnimate'])
         };
 
         $scope.createNewEpmloyee = function () {
-            $http.defaults.headers.common.Authorization = 'Bearer '+ authentication.getToken();
-            $http.post('/api/employees', $scope.formData)
+            // $http.defaults.headers.common.Authorization = 'Bearer '+ authentication.getToken();
+            $http.post('/api/employees', $scope.formData, {
+                headers: {
+                    Authorization: 'Bearer ' + authentication.getToken()
+                }
+            })
                 .success(function () {
                     $scope.getEmployees();
                     $scope.showCreateForm = false;
@@ -82,14 +86,21 @@ angular.module('app', ['appRouter', 'ngAnimate'])
     .controller('homeController', function ($scope) {
         $scope.message = 'Home Page';
     })
-    .controller('newsController', function ($scope, $http, $rootScope, authentication) {
+    .controller('newsController', function ($scope, $http, $routeParams) {
         $scope.currentPage = true;
         $scope.showCreateForm = false;
         $scope.formData = {};
+        $scope.pagesAmount = null;
+
+        $scope.isActive = function(pageNumber){
+            return window.location.pathname.split('/').pop() == pageNumber;
+        }
 
         $scope.getNews = function () {
-            $http.get('/api/news')
+            var url = $routeParams.page ? '/api/news/page/' + $routeParams.page : '/api/news';
+            $http.get(url)
                 .then(function (data) {
+                    $scope.pagesAmount = data.data.pop().pagesAmount;
                     $scope.news = data.data;
                 });
         };
@@ -138,7 +149,7 @@ angular.module('app', ['appRouter', 'ngAnimate'])
                 });
         }
     })
-    .controller('articleController', function ($scope, $http, $routeParams) {
+    .controller('articleController', function ($scope, $http, $routeParams, $window) {
         $http.get('/api/news/' + $routeParams.id)
             .success(function (data) {
                 $scope.news = data;
@@ -146,6 +157,9 @@ angular.module('app', ['appRouter', 'ngAnimate'])
             .error(function (data) {
                 console.error(data);
             });
+        $scope.back = function(){
+            $window.history.back();
+        };
     })
     .controller('contactsController', function () {
         var position = [50.4261108, 30.53702469999996];

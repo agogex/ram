@@ -2,5 +2,6 @@
 
 module.exports = {
 	'port': process.env.PORT || 8080,
-	'database': 'mongodb://localhost/app'
+	'database': 'mongodb://localhost/app',
+	'newsPerPage': 10
 }

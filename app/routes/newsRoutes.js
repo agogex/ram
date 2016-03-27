@@ -2,26 +2,80 @@
 /// <reference path="../../typings/express/express.d.ts" />
 /// <reference path="../../typings/mongoose/mongoose.d.ts" />
 /// <reference path="../../typings/body-parser/body-parser.d.ts" />
+var config = require('../../config');
 
 var routes = function (News, express) {
     var newsRouter = express.Router();
 
     newsRouter.route('/')
-        .get(function (req, res) {
-            News.find(function (err, news) {
-                if (err) {
-                    res.status(500).send(err);
-                } else {
-                    res.json(news);
-                }
-            });
-        })
+        //.get(function(req, res) {
+        //    News.find()
+        //        .sort('-date')
+        //        .exec(function(err, news) {
+        //            if (err) {
+        //                res.status(500).send(err);
+        //            } else {
+        //                res.json(news);
+        //            }
+        //        });
+        //})
         .post(function (req, res) {
             var news = new News(req.body);
             news.date = Date.now();
             news.save();
             res.status(201).send(news);
         });
+
+    newsRouter.route('/page/:page').get(function (req, res) {
+        var skipPages = (req.params.page - 1) * config.newsPerPage;
+        var pagesAmout = null;
+
+        News
+            .count()
+            .exec(function (err, count) {
+                if (err) {
+                    console.log(err);
+                    return;
+                }
+                pagesAmout = Math.ceil(count / config.newsPerPage);
+            })
+            .then(function () {
+                News
+                    .find()
+                    .skip(skipPages)
+                    .limit(config.newsPerPage)
+                    .sort('-date')
+                    .exec(function (err, news) {
+
+                        if (err) {
+                            res.status(500).send(err);
+                        } else {
+                            if (pagesAmout) {
+                                news.push({pagesAmount: pagesAmout});
+                            }
+                            res.json(news);
+                        }
+                    });
+            });
+    });
+
+    //    News
+    //        .find()
+    //        .skip(skipPages)
+    //        .limit(config.newsPerPage)
+    //        .sort('-date')
+    //        .exec(function (err, news) {
+    //
+    //            if (err) {
+    //                res.status(500).send(err);
+    //            } else {
+    //                if (pagesAmout) {
+    //                    news.push({pagesAmount: pagesAmout});
+    //                }
+    //                res.json(news);
+    //            }
+    //        });
+    //});
 
     newsRouter.use('/:id', function (req, res, next) {
         News.findById(req.params.id, function (err, news) {
@@ -54,15 +108,16 @@ var routes = function (News, express) {
                 }
             });
         })
-        .delete(function(req, res){
-            req.news.remove(function(err){
-                if(err){
+        .delete(function (req, res) {
+            req.news.remove(function (err) {
+                if (err) {
                     res.status(500).send(err);
-                } else{
+                } else {
                     res.status(204).send('Removed');
                 }
             });
         });
+
 
     return newsRouter;
 };
