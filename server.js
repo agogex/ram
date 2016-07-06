@@ -15,19 +15,20 @@ var express = require('express'),
     Employee = require('./app/models/employee'),
     News = require('./app/models/news'),
     User = require('./app/models/user'),
-    config = require('./config');
+    config = require('./config'),
+    createUser = require('./utils').createUser;
 
-require('./app/config/passport');    
+require('./app/config/passport');
     
+User.findOne({name: 'admin'}, function(err, user){
+    if(err){
+        console.log(err);
+    } else if (!user) {
+        createUser('admin', 'password', User);
+    }
+});
 
-function createUser(name, password){
-    var user = new User();
-    user.name = name;
-    user.setPassword(password);
-    user.save();
-}
-
-// createUser('admin', 'password');
+ //createUser('admin', 'password');
 
 // app.use(morgan('dev'));
 app.use(express.static(__dirname + '/public'));

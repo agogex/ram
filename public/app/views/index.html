@@ -18,7 +18,7 @@
 
 <body ng-app="app" ng-controller="mainMenuController">
     <div class="navbar-fixed">
-        <nav>
+        <nav class="light-blue darken-3">
             <div class="nav-wrapper">
                 <a href="#!" class="brand-logo">Logo</a>
                 <ul class="right">
@@ -26,7 +26,7 @@
                     <li ng-class="{active: isActive('employees')}"><a href="/employees">Довідник</a></li>
                     <li ng-class="{active: isActive('news')}"><a href="/news/page/1">Новини</a></li>
                     <li ng-class="{active: isActive('contacts')}"><a href="/contacts">Контакти</a></li>
-                    <li ng-show="isLoggedIn"><a href="" ng-click="logout()"><i class="large material-icons">input</i></a></li>
+                    <li ng-if="isLoggedIn"><a href="" ng-click="logout()"><i class="large material-icons">input</i></a></li>
                 </ul>
             </div>
         </nav>
@@ -35,7 +35,7 @@
     <main ng-view style="padding-top: 20px"></main>
 
 
-    <footer class="page-footer">
+    <footer class="page-footer light-blue darken-3">
         <div class="container">
             <div class="row">
                 <div class="col l6 s12">
