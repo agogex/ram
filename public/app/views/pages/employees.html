@@ -65,7 +65,7 @@
     </div>
     <div class="row">
         <div class="col s10 offset-s1">
-            <ul class="collection">
+            <ul class="collection" ng-if="employees.length > 0">
                 <li class="collection-item avatar" ng-repeat="employee in employees | filter:query">
                     <i class="material-icons circle">person</i>
                     <span class="title"><h5>{{employee.lastname}} {{employee.name}} {{employee.surname}}</h5></span>
