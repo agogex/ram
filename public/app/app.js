@@ -159,7 +159,7 @@ angular.module('app', ['appRouter', 'ngAnimate'])
         };
     })
     .controller('contactsController', function() {
-        var position = [50.4261108, 30.53702469999996];
+        var position = [50.4480833, 30.5211721];
 
         var latLng = new google.maps.LatLng(position[0], position[1]);
 
