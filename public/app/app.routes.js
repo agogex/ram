@@ -30,6 +30,7 @@ angular.module('appRouter', ['ngRoute'])
             .when('/login', {
                 templateUrl: '/app/views/pages/login.html',
                 controller: 'loginController'
-            });
+            })
+            .otherwise({redirectTo:'/'});
         $locationProvider.html5Mode(true);
     });
