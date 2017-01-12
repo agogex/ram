@@ -9,7 +9,7 @@ angular.module('app', ['appRouter', 'ngAnimate'])
         $scope.logout = function() {
             authentication.logout();
             $rootScope.isLoggedIn = false;
-            $location.path('/');
+            $location.path('/home');
         };
         $rootScope.isLoggedIn = authentication.isLoggedIn();
     })
@@ -183,14 +183,14 @@ angular.module('app', ['appRouter', 'ngAnimate'])
     })
     .controller('loginController', function($scope, $rootScope, $location, authentication) {
         $scope.credentials = {
-            username: "",
-            password: ""
+            username: "admin",
+            password: "password"
         };
         $scope.login = function() {
             authentication.login($scope.credentials)
                 .success(function() {
                     Materialize.toast('Авторизація пройшла успішно!', 4000, 'teal lighten-2');
-                    $location.path('/');
+                    $location.path('/home');
                     $rootScope.isLoggedIn = true;
                 })
                 .error(function(err) {

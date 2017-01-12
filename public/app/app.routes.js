@@ -3,7 +3,11 @@
 angular.module('appRouter', ['ngRoute'])
     .config(function ($routeProvider, $locationProvider) {
         $routeProvider
-            .when('/', {
+            .when('/login', {
+                templateUrl: '/app/views/pages/login.html',
+                controller: 'loginController'
+            })
+            .when('/home', {
                 templateUrl: '/app/views/pages/home.html',
                 controller: 'homeController'
             })
@@ -27,10 +31,8 @@ angular.module('appRouter', ['ngRoute'])
                 templateUrl: '/app/views/pages/contacts.html',
                 controller: 'contactsController'
             })
-            .when('/login', {
-                templateUrl: '/app/views/pages/login.html',
-                controller: 'loginController'
-            })
-            .otherwise({redirectTo:'/'});
+            .otherwise({
+                redirectTo: '/'
+            });
         $locationProvider.html5Mode(true);
     });

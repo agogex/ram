@@ -1,7 +1,7 @@
 /// <reference path="typings/node/node.d.ts" />
 
 module.exports = {
-	'port': process.env.PORT || 8080,
+	'port': 3000,
 	'database': 'mongodb://localhost/app',
 	'newsPerPage': 5
 }
