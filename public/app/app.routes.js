@@ -32,7 +32,7 @@ angular.module('appRouter', ['ngRoute'])
                 controller: 'contactsController'
             })
             .otherwise({
-                redirectTo: '/'
+                redirectTo: '/home'
             });
         $locationProvider.html5Mode(true);
     });
